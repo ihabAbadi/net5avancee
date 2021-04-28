@@ -1,6 +1,7 @@
 using exampleMVCApplication.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,6 +35,9 @@ namespace exampleMVCApplication
             services.AddSingleton<ISingeletonInterface, FirstService>();
 
             services.AddTransient<IUpload, UploadService>();
+
+            //services.AddTransient<IUpload>(i => new UploadService());
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,6 +65,17 @@ namespace exampleMVCApplication
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+            app.Use(async (context, next) =>
+            {
+               await next.Invoke();
+            });
+
+            //app.UseMiddleware<FirstMiddleware>();
+            app.UseOurMiddleware();
+            app.Run(async context =>
+            {
+                await context.Response.WriteAsync("first middleware");
             });
         }
     }
