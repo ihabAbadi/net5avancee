@@ -30,8 +30,16 @@ namespace exampleMVCApplication.Services
     {
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            Timer timer = new Timer((state) => {
+                Debug.WriteLine("new background task");
+            }, null, TimeSpan.Zero, TimeSpan.FromSeconds(10));
             Debug.WriteLine("Start our backgournd task");
             return Task.CompletedTask;
         }
     }
+
+    //public class SpecialWroker : IWorker
+    //{
+
+    //}
 }
