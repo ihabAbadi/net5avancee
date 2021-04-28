@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormationNet5", "FormationNet5\FormationNet5.csproj", "{D44AB9B0-7B7B-4D2F-9366-2B264440F52C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D44AB9B0-7B7B-4D2F-9366-2B264440F52C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D44AB9B0-7B7B-4D2F-9366-2B264440F52C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D44AB9B0-7B7B-4D2F-9366-2B264440F52C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D44AB9B0-7B7B-4D2F-9366-2B264440F52C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {61157856-062C-4114-862C-40C42BE7749B}
+	EndGlobalSection
+EndGlobal
