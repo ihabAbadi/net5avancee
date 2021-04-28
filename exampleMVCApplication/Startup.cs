@@ -43,6 +43,9 @@ namespace exampleMVCApplication
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //app.UseMiddleware<FirstMiddleware>();
+            app.UseOurMiddleware();
+            app.UseTrackerMiddleware();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -66,17 +69,16 @@ namespace exampleMVCApplication
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-            app.Use(async (context, next) =>
-            {
-               await next.Invoke();
-            });
+            //app.Use(async (context, next) =>
+            //{
+            //   await next.Invoke();
+            //});
 
-            //app.UseMiddleware<FirstMiddleware>();
-            app.UseOurMiddleware();
-            app.Run(async context =>
-            {
-                await context.Response.WriteAsync("first middleware");
-            });
+            
+            //app.Run(async context =>
+            //{
+            //    await context.Response.WriteAsync("first middleware");
+            //});
         }
     }
 }

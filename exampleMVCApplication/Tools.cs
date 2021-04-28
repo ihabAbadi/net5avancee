@@ -13,5 +13,9 @@ namespace exampleMVCApplication
         {
             return builder.UseMiddleware<FirstMiddleware>();
         }
+        public static IApplicationBuilder UseTrackerMiddleware(this IApplicationBuilder builder)
+        {
+            return builder.UseMiddleware<TrackerMiddleware>();
+        }
     }
 }

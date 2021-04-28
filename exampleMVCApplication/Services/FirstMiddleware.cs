@@ -21,6 +21,7 @@ namespace exampleMVCApplication.Services
         {
             //Logique métier de notre middleware
             Debug.WriteLine("Our special middleware");
+            //throw new Exception("erreur middleware");
             return _next(httpContext);
         }
     }
