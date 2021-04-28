@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FormationApiRest.Tools;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,17 +13,14 @@ namespace FormationApiRest.Controllers
     public class PersonController : ControllerBase
     {
         [HttpGet]
-        public IEnumerable<Person> Get()
-        {
-            return new List<Person>() {
-                new Person {FirstName = "toto", LastName ="tata"},
-                new Person {FirstName = "titi", LastName ="minet"},
-            };
-        }
+        public List<Person> Get() => new () {new Person {FirstName = "toto", LastName ="tata"},new Person {FirstName = "titi", LastName ="minet"},};
+       
 
         [HttpGet("{id}")]
         public Person Get([FromQuery]int id)
         {
+            DataContext data = new DataContext();
+            data.Database.EnsureCreated();
             return new Person { FirstName = "toto", LastName = "tata" };
         }
 
