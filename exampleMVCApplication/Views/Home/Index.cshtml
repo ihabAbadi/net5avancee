@@ -1,0 +1,19 @@
+﻿@inject ITransientInterface _transientService
+@inject IScopedInterface _scopedService
+@inject ISingeletonInterface _singletonService
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1>Transient injection</h1>
+    <div>@ViewBag.TransientGuid</div>
+    <div>@_transientService.GetGuid</div>
+    <h1>scoped injection</h1>
+    <div>@ViewBag.ScopedGuid</div>
+    <div>@_scopedService.GetGuid</div>
+    <h1>singleton injection</h1>
+    <div>@ViewBag.SingletonGuid</div>
+    <div>@_singletonService.GetGuid</div>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>

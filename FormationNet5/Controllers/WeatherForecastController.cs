@@ -24,7 +24,7 @@ namespace FormationNet5.Controllers
         {
             //test first record
             //Weather w = new Weather(20);
-            Weather w = new(20);
+            /*Weather w = new(20);
             Weather w2 = w with { temperature = 30 };
             Person p = new Person { FirstName = "ihab", LastName = "abadi" };
             //p.FirstName = "toto";
@@ -35,7 +35,10 @@ namespace FormationNet5.Controllers
             if(c is Car)
             {
                 var (_, price) = (Car)c;
-            }
+            }*/
+            //Exemple Injection dependance
+            ClassB b = new ClassB();
+            ClassA a = new ClassA(b);
             
             _logger = logger;
         }
