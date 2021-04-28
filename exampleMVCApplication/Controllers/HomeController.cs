@@ -1,5 +1,6 @@
 ﻿using exampleMVCApplication.Models;
 using exampleMVCApplication.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -16,12 +17,14 @@ namespace exampleMVCApplication.Controllers
         ITransientInterface _transientService;
         IScopedInterface _scopedService;
         ISingeletonInterface _singletonService;
-        public HomeController(ILogger<HomeController> logger, ITransientInterface transientService, IScopedInterface scopedService, ISingeletonInterface singletonService)
+        IUpload _uploadService;
+        public HomeController(ILogger<HomeController> logger, ITransientInterface transientService, IScopedInterface scopedService, ISingeletonInterface singletonService, IUpload uploadService)
         {
             _logger = logger;
             _transientService = transientService;
             _scopedService = scopedService;
             _singletonService = singletonService;
+            _uploadService = uploadService;
         }
 
         public IActionResult Index()
@@ -41,6 +44,18 @@ namespace exampleMVCApplication.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult SubmitFiles(IFormFile[] files)
+        {
+            if(_uploadService.Upload(files))
+            {
+                return Ok(new { message = "All Ok" });
+            }
+            else
+            {
+                return Ok(new { message = "Error upload" });
+            }
         }
     }
 }

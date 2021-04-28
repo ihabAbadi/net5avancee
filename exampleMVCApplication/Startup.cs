@@ -32,6 +32,8 @@ namespace exampleMVCApplication
             services.AddScoped<IScopedInterface, FirstService>();
 
             services.AddSingleton<ISingeletonInterface, FirstService>();
+
+            services.AddTransient<IUpload, UploadService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
