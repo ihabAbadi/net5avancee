@@ -36,6 +36,8 @@ namespace exampleMVCApplication
 
             services.AddTransient<IUpload, UploadService>();
 
+            services.AddHostedService<OurBackgroundService>();
+
             //services.AddTransient<IUpload>(i => new UploadService());
 
         }

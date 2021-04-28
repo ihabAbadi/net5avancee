@@ -20,7 +20,7 @@ namespace exampleMVCApplication.Services
         {
             var userAgent= context.Request.Headers["user-agent"];
             var ip = context.Connection.RemoteIpAddress;
-            var serverName = System.Net.Dns.GetHostName();
+            var serverName = context.Request.Host;
             Debug.WriteLine(userAgent);
             Debug.WriteLine(ip);
             Debug.WriteLine(serverName);
