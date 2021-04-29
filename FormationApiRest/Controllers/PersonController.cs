@@ -1,4 +1,6 @@
 ﻿using FormationApiRest.Tools;
+using Grpc.Net.Client;
+using HelloService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -112,6 +114,15 @@ namespace FormationApiRest.Controllers
         public IActionResult Delete(int id)
         {
             return Ok(new { message = "Delete Ok" });
+        }
+
+        [HttpGet("/gRPC")] 
+        public async Task<IActionResult> GetFromgRPC()
+        {
+            using GrpcChannel channelCommunication = GrpcChannel.ForAddress("https://localhost:5001");
+            var client = new Greeter.GreeterClient(channelCommunication);
+            HelloReply response = await client.SayHelloAsync(new HelloRequest { Name = "ihab" });
+            return Ok(new { message = response.Message});
         }
     }
 
