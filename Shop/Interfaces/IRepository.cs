@@ -11,5 +11,7 @@ namespace Shop.Interfaces
         T Find(object primaryKey);
         ICollection<T> FindAll();
 
+        Task<IEnumerable<T>> FindAllAsync();
+
     }
 }

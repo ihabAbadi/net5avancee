@@ -17,21 +17,23 @@ namespace Shop.Controllers
     {
         private readonly DataContext _context;
         IUpload _upload;
-        public CategoryController(DataContext context, IUpload upload)
+        IRepository<Category> _categoryRepository;
+        public CategoryController(DataContext context, IUpload upload, IRepository<Category> repository)
         {
             _context = context;
             _upload = upload;
+            _categoryRepository = repository;
         }
 
         // GET: api/Categories
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
+        public async Task<IEnumerable<Category>> GetCategories()
         {
-            return await _context.Categories.ToListAsync();
+            return await _categoryRepository.FindAllAsync();
         }
 
         // GET: api/Categories/5
-        [HttpGet]
+        [HttpGet("api/category")]
         public async Task<ActionResult<Category>> GetCategory([FromQuery]int id)
         {
             var category = await _context.Categories.FindAsync(id);

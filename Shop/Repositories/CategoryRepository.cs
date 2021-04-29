@@ -1,4 +1,5 @@
-﻿using Shop.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Shop.Interfaces;
 using Shop.Models;
 using Shop.Services;
 using System;
@@ -26,7 +27,12 @@ namespace Shop.Repositories
 
         public ICollection<Category> FindAll()
         {
-            throw new NotImplementedException();
+            return _data.Categories.ToList();
+        }
+
+        public async Task<IEnumerable<Category>> FindAllAsync()
+        {
+            return await _data.Categories.Include(e => e.Image).ToListAsync();
         }
     }
 }
