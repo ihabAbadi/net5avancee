@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -30,17 +32,40 @@ namespace FormationApiRest.Controllers
         //public List<Person> Get() => new () {new Person {FirstName = "toto", LastName ="tata"},new Person {FirstName = "titi", LastName ="minet"},};
         public List<Models.Person> Get()
         {
+            #region Exemple d'utilisation instance DataContext
             //DataContext data = new DataContext();
             //var req = _dataContext.Persons.Include(p => p.Addresses.Where(a => a.Adress.Contains("w"))).ToQueryString();
             //return _dataContext.Persons.Include(p => p.Addresses.Where(a => a.Adress.Contains("w"))).ToList();
-            Task<List<Models.Person>> t = new Task<List<Models.Person>>(() =>
+            #endregion
+
+            #region exemple d'utilisation instance DbContextFactory à l'interieur d'une task
+            /*Task<List<Models.Person>> t = new Task<List<Models.Person>>(() =>
             {
                 using DataContext data = _dataContextFactory.CreateDbContext();
                 var req = data.Persons.Include(p => p.Addresses.Where(a => a.Adress.Contains("w"))).ToQueryString();
                 return data.Persons.Include(p => p.Addresses.Where(a => a.Adress.Contains("w"))).ToList();
             });
             t.Start();
-            return t.Result;
+            return t.Result;*/
+            #endregion
+
+            #region exemple d'utilisation requete à l'aide d'entityframework
+            using DataContext data = _dataContextFactory.CreateDbContext();
+            SqlParameter p = new SqlParameter("@Id", 1);
+            //A vérifier
+            List<Models.Person> persons = data.Persons.FromSqlRaw("SELECT * FROM Person where id > @Id", p).ToList();
+            //Passer par une commande, pour inserer ou une mise à jour 
+            //data.Database.ExecuteSqlRaw("SELECT * FROM Person where id > @Id", p);
+            //utiliser EFcore comme couche pour acceder au ADO.NET
+            //DbCommand command = data.Database.GetDbConnection().CreateCommand();
+            //command.CommandText = "SELECT * FROM Person where id > @id";
+            //command.Parameters.Add(new SqlParameter("@id", 1));
+            //using( DbDataReader reader = command.ExecuteReader())
+            //{
+
+            //}
+            return persons;
+            #endregion
         }
 
         [HttpGet("{id}")]
@@ -58,6 +83,20 @@ namespace FormationApiRest.Controllers
         [HttpPost]
         public Person Post([FromBody]Person person)
         {
+            #region exemple d'utilisation transation efCore
+            using DataContext data = _dataContextFactory.CreateDbContext();
+            using var transaction = data.Database.BeginTransaction();
+            try
+            {
+                data.Persons.Add(new Models.Person() { FirstName = "new", LastName = "new l" });
+                data.SaveChanges();
+                transaction.CreateSavepoint("pointSauvegarde");
+                transaction.Commit();
+            }catch(Exception e)
+            {
+                transaction.RollbackToSavepoint("pointSauvegarde");
+            }
+            #endregion
             return person;
         }
 
