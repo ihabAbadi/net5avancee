@@ -83,7 +83,6 @@ namespace Shop.Controllers
             category.Image = _upload.Upload(image);
             _context.Categories.Add(category);
             await _context.SaveChangesAsync();
-
             return CreatedAtAction("GetCategory", new { id = category.Id }, category);
         }
 
@@ -96,7 +95,6 @@ namespace Shop.Controllers
             {
                 return NotFound();
             }
-
             _context.Categories.Remove(category);
             await _context.SaveChangesAsync();
 
