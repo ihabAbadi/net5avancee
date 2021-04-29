@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Shop.Interfaces;
 using Shop.Models;
 using Shop.Services;
 
@@ -15,10 +16,11 @@ namespace Shop.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly DataContext _context;
-
-        public CategoryController(DataContext context)
+        IUpload _upload;
+        public CategoryController(DataContext context, IUpload upload)
         {
             _context = context;
+            _upload = upload;
         }
 
         // GET: api/Categories
@@ -78,6 +80,7 @@ namespace Shop.Controllers
         [HttpPost]
         public async Task<ActionResult<Category>> PostCategory([FromForm]IFormFile image, [FromForm][Bind("Title")]Category category)
         {
+            category.Image = _upload.Upload(image);
             _context.Categories.Add(category);
             await _context.SaveChangesAsync();
 
