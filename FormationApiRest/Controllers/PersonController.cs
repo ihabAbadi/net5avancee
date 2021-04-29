@@ -51,9 +51,11 @@ namespace FormationApiRest.Controllers
 
             #region exemple d'utilisation requete à l'aide d'entityframework
             using DataContext data = _dataContextFactory.CreateDbContext();
-            SqlParameter p = new SqlParameter("@Id", 1);
+            //SqlParameter p = new SqlParameter("@Id", System.Data.SqlDbType.Int);
+            //p.Value = 1;
+            string value = "3 OR 1=1";
             //A vérifier
-            List<Models.Person> persons = data.Persons.FromSqlRaw("SELECT * FROM Person where id > @Id", p).ToList();
+            List<Models.Person> persons = data.Persons.FromSqlInterpolated($"SELECT * FROM Person where id > {value}").ToList();
             //Passer par une commande, pour inserer ou une mise à jour 
             //data.Database.ExecuteSqlRaw("SELECT * FROM Person where id > @Id", p);
             //utiliser EFcore comme couche pour acceder au ADO.NET
