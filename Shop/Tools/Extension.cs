@@ -14,6 +14,7 @@ namespace Shop.Tools
         public static void AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<IRepository<Category>, CategoryRepository>();
+            services.AddScoped<IRepository<Product>, ProductRepository>();
         }
     }
 }

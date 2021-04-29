@@ -2,6 +2,7 @@
 using Shop.DTOS;
 using Shop.Interfaces;
 using Shop.Models;
+using Shop.Protos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Shop.Services
         }*/
         public CustomProfile()
         {
-            CreateMap<Product, ProductDTO>();
+            CreateMap<RequestProduct, Models.Product>().ForMember(d => d.Price, e => e.MapFrom(o => o.Price));
         }
     }
 }

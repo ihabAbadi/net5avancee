@@ -38,6 +38,7 @@ namespace Shop
             services.AddAutoMapper(typeof(Startup));
             services.AddTransient<IUpload, Upload>();
             services.AddRepositories();
+            services.AddGrpc();
             services.AddDbContext<DataContext>(options => options.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ihab\Desktop\Formation\asp.net core 5\FormationNet5\data.mdf;Integrated Security=True;Connect Timeout=30"));
         }
 
@@ -57,6 +58,7 @@ namespace Shop
 
             app.UseEndpoints(endpoints =>
             {
+                //endpoints.MapGrpcService<>();
                 endpoints.MapControllers();
             });
         }
