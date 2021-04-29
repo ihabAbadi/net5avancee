@@ -1,6 +1,8 @@
+using FormationApiRest.Tools;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,6 +33,11 @@ namespace FormationApiRest
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FormationApiRest", Version = "v1" });
             });
+            //Ajouter notre dbContext dans le container de service
+            //services.AddScoped<DbContext, DataContext>();
+            //services.AddDbContext<DataContext>(options => options.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ihab\Desktop\Formation\asp.net core 5\FormationNet5\data.mdf;Integrated Security=True;Connect Timeout=30"));
+            //EFCore 5 ajoute la possiblité de déclarer comme service une factory de dbContext
+            services.AddDbContextFactory<DataContext>(options => options.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ihab\Desktop\Formation\asp.net core 5\FormationNet5\data.mdf;Integrated Security=True;Connect Timeout=30"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
