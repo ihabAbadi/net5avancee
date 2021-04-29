@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Shop.Interfaces;
 using Shop.Services;
+using Shop.ServicesGrpc;
 using Shop.Tools;
 using System;
 using System.Collections.Generic;
@@ -58,7 +59,7 @@ namespace Shop
 
             app.UseEndpoints(endpoints =>
             {
-                //endpoints.MapGrpcService<>();
+                endpoints.MapGrpcService<ProductService>();
                 endpoints.MapControllers();
             });
         }

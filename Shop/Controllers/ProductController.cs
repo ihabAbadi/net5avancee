@@ -1,6 +1,7 @@
 ﻿using Grpc.Net.Client;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Shop.Protos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,15 @@ namespace Shop.Controllers
         public IActionResult Get()
         {
             return Ok();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody]Models.Product product)
+        {
+            using GrpcChannel channel = GrpcChannel.ForAddress("https://localhost:5001");
+            var client = new Product.ProductClient(channel);
+            ResponseProduct response = await client.SendProductAsync(new RequestProduct { Title = product.Title, Price = (double)product.Price });
+            return Ok(response);
         }
     }
 }
