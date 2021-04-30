@@ -8,9 +8,9 @@ namespace ExempleSignalR.Services
 {
     public class FirstHub : Hub
     {
-        public async Task SendMessage(string message)
+        public async Task SendMessage(string message, string user)
         {
-            await Clients.All.SendAsync("ReceiveMessage", message);
+            await Clients.All.SendAsync("ReceiveMessage", message ,user);
         }
     }
 }

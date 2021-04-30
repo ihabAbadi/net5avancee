@@ -4,12 +4,12 @@ connection.start().then(res => {
 }).catch(err => {
     console.log(err)
 })
-connection.on("ReceiveMessage", (message) => {
-    $("#result").append("<div class='row'>"+message+"</div>")
+connection.on("ReceiveMessage", (message, u) => {
+    $("#result").append(`<div class='row'> from ${u}: ${message}</div>`)
 })
 
 $("#send").on('click', function (e) {
-    connection.invoke("SendMessage", $("input[name='message']").val()).catch(err => {
+    connection.invoke("SendMessage", $("input[name='message']").val(), $("input[name='user']").val()).catch(err => {
         console.log(err)
     })
 })
