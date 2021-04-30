@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "exampleAspNetRazorPage", "e
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FormationApiRest", "FormationApiRest\FormationApiRest.csproj", "{49481EE6-C90A-4DBE-B6CF-6353567A4FC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop", "Shop\Shop.csproj", "{0B2F8DFD-348E-46B9-BDC7-2A4CDF2270E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop", "Shop\Shop.csproj", "{0B2F8DFD-348E-46B9-BDC7-2A4CDF2270E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloService", "HelloService\HelloService.csproj", "{4D2FACB9-2730-4D68-9D79-E8B48DBA18CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloService", "HelloService\HelloService.csproj", "{4D2FACB9-2730-4D68-9D79-E8B48DBA18CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthenticationExemple", "AuthenticationExemple\AuthenticationExemple.csproj", "{C39B131C-3A4D-4215-BD1C-E153D49223D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{4D2FACB9-2730-4D68-9D79-E8B48DBA18CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D2FACB9-2730-4D68-9D79-E8B48DBA18CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D2FACB9-2730-4D68-9D79-E8B48DBA18CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C39B131C-3A4D-4215-BD1C-E153D49223D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C39B131C-3A4D-4215-BD1C-E153D49223D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C39B131C-3A4D-4215-BD1C-E153D49223D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C39B131C-3A4D-4215-BD1C-E153D49223D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
