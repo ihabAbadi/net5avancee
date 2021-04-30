@@ -8,8 +8,15 @@ connection.on("ReceiveMessage", (message, u) => {
     $("#result").append(`<div class='row'> from ${u}: ${message}</div>`)
 })
 
+$("#join").on('click', function (e) {
+    alert("ok")
+    connection.invoke("CreateGroup", $("input[name='group']").val()).catch(err => {
+        console.log(err)
+    })
+})
+
 $("#send").on('click', function (e) {
-    connection.invoke("SendMessage", $("input[name='message']").val(), $("input[name='user']").val()).catch(err => {
+    connection.invoke("SendMessage", $("input[name='message']").val(), $("input[name='user']").val(), $("input[name='group']").val()).catch(err => {
         console.log(err)
     })
 })
