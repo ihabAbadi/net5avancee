@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "simpleAuthentication", "sim
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "simpleAuthneticationMVC", "simpleAuthneticationMVC\simpleAuthneticationMVC.csproj", "{60291D9F-A5C6-4F7F-A6D1-D464E3330042}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExempleSignalR", "ExempleSignalR\ExempleSignalR.csproj", "{E15018E5-5FF5-4A34-A138-55F88C2ABEE5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{60291D9F-A5C6-4F7F-A6D1-D464E3330042}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60291D9F-A5C6-4F7F-A6D1-D464E3330042}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60291D9F-A5C6-4F7F-A6D1-D464E3330042}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E15018E5-5FF5-4A34-A138-55F88C2ABEE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E15018E5-5FF5-4A34-A138-55F88C2ABEE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E15018E5-5FF5-4A34-A138-55F88C2ABEE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E15018E5-5FF5-4A34-A138-55F88C2ABEE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

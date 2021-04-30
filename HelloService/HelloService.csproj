@@ -12,4 +12,8 @@
     <PackageReference Include="Grpc.AspNetCore" Version="2.37.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AuthenticationExemple\AuthenticationExemple.csproj" />
+  </ItemGroup>
+
 </Project>
