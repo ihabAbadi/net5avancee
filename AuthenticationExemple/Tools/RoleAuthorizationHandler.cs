@@ -21,7 +21,7 @@ namespace AuthenticationExemple.Tools
             }
             else
             {
-                if(requirement.Role.ToString() == context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value)
+                if(requirement.Role == context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value)
                 {
                     context.Succeed(requirement);
                 }

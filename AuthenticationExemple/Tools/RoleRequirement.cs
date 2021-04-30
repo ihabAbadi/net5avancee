@@ -9,8 +9,8 @@ namespace AuthenticationExemple.Tools
 {
     public class RoleRequirement : IAuthorizationRequirement
     {
-        private Role role;
+        private string role;
 
-        public Role Role { get => role; set => role = value; }
+        public string Role { get => role; set => role = value; }
     }
 }

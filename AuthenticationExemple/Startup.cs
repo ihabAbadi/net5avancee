@@ -35,48 +35,52 @@ namespace AuthenticationExemple
         {
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AuthenticationExemple", Version = "v1" });
-            });
+            //services.AddSwaggerGen(c =>
+            //{
+            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "AuthenticationExemple", Version = "v1" });
+            //});
             services.AddTransient<ITokenGenerator, JwtService>();
+            services.AddScoped<IAuthorizationHandler, RoleAuthorizationHandler>();
+
             //Ajouter la configuration du service authentification
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
+                options.SaveToken = true;
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Hello world from our api token")),
                     ValidateIssuer = true,
                     ValidIssuer = "utopios",
-
+                    ValidateAudience = true,
+                    ValidAudience = "utopios"
                 };
             });
             //Ajouter la configuration du service authorisation
             services.AddAuthorization(options => {
                 options.AddPolicy("customer", police =>
                 {
-                    police.AddRequirements(new RoleRequirement() { Role = Models.Role.customer });
+                    police.AddRequirements(new RoleRequirement() { Role = Models.Role.customer.ToString() });
                 });
                 options.AddPolicy("admin", police =>
                 {
-                    police.AddRequirements(new RoleRequirement() { Role = Models.Role.admin });
+                    police.AddRequirements(new RoleRequirement() { Role = Models.Role.admin.ToString() });
                 });
             });
-            services.AddScoped<IAuthorizationHandler, RoleAuthorizationHandler>();
+            //services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AuthenticationExemple v1"));
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //    app.UseSwagger();
+            //    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AuthenticationExemple v1"));
+            //}
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
             app.UseAuthentication();

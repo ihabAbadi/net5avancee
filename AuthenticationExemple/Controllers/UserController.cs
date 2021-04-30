@@ -25,7 +25,7 @@ namespace AuthenticationExemple.Controllers
             //logique métier de connexion,
             if(user.login == "ihab" && user.password == "123456")
             {
-                CustomUSer customUser = new CustomUSer() { Email = "ihab@utopios.net", Role = Role.admin };
+                CustomUSer customUser = new CustomUSer() { Email = "ihab@utopios.net", Role = Role.customer };
                 return Ok(new { token = _generator.MakeToken(customUser) });
             }
             return NotFound();

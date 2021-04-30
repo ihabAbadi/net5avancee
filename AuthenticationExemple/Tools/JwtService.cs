@@ -21,7 +21,7 @@ namespace AuthenticationExemple.Tools
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Role, user.Role.ToString())
             };
-            JwtSecurityToken jwt = new JwtSecurityToken(issuer:"utopios",claims:claims, signingCredentials:signingCredentials, expires:DateTime.Now.AddMinutes(2));
+            JwtSecurityToken jwt = new JwtSecurityToken(issuer:"utopios",audience:"utopios",claims:claims, signingCredentials:signingCredentials, expires:DateTime.Now.AddDays(10));
             return new JwtSecurityTokenHandler().WriteToken(jwt);
         }
     }

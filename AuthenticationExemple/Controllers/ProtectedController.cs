@@ -10,10 +10,11 @@ namespace AuthenticationExemple.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Policy = "customer")]
+    
     public class ProtectedController : ControllerBase
     {
         [HttpGet("Customer")]
+        [Authorize(Policy = "customer")]
         public IActionResult Customer()
         {
             return Ok(new { message = "Access customer" });
@@ -24,6 +25,12 @@ namespace AuthenticationExemple.Controllers
         public IActionResult Admin()
         {
             return Ok(new { message = "Acces admin"});
+        }
+
+        [HttpGet("Public")]
+        public IActionResult Public()
+        {
+            return Ok(new { message = "Acces public" });
         }
     }
 }
