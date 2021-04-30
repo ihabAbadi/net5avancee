@@ -30,5 +30,19 @@ namespace HelloService
                 Message = "Hello from second Hello"
             });
         }
+
+        public override async Task HellStreaming(HelloRequest request, IServerStreamWriter<HelloReply> responseStream, ServerCallContext context)
+        {
+            for(int i=1; i <= 10;i++)
+            {
+                await Task.Delay(1000);
+                HelloReply response = new HelloReply()
+                {
+                    Message = request.Name + " " + i,
+                };
+                await responseStream.WriteAsync(response);
+            }
+            //return base.HellStreaming(request, responseStream, context);
+        }
     }
 }

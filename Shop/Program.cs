@@ -29,7 +29,7 @@ namespace Shop
                             httpsOptions.SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13;
                         });
                         options.ListenLocalhost(5001, o => { o.Protocols = HttpProtocols.Http2; });
-                        options.ListenLocalhost(1888, o => o.Protocols = HttpProtocols.Http1);
+                        //options.ListenLocalhost(1888, o => o.Protocols = HttpProtocols.Http1);
                     });
                     webBuilder.UseStartup<Startup>();
                 });

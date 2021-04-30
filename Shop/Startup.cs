@@ -30,8 +30,9 @@ namespace Shop
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddGrpc();
-            services.AddGrpcHttpApi();
+            
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -40,7 +41,7 @@ namespace Shop
             services.AddAutoMapper(typeof(Startup));
             services.AddTransient<IUpload, Upload>();
             services.AddRepositories();
-            
+            services.AddHttpsRedirection(o => o.HttpsPort = 5001);
             services.AddDbContext<DataContext>(options => options.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ihab\Desktop\Formation\asp.net core 5\FormationNet5\data.mdf;Integrated Security=True;Connect Timeout=30"));
         }
 
@@ -53,7 +54,7 @@ namespace Shop
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Shop v1"));
             }
-            
+            app.UseHttpsRedirection();
             app.UseRouting();
 
             //app.UseAuthorization();

@@ -1,4 +1,5 @@
 ﻿using FormationApiRest.Tools;
+using Grpc.Core;
 using Grpc.Net.Client;
 using HelloService;
 using Microsoft.AspNetCore.Http;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -121,8 +123,14 @@ namespace FormationApiRest.Controllers
         {
             using GrpcChannel channelCommunication = GrpcChannel.ForAddress("https://localhost:5001");
             var client = new Greeter.GreeterClient(channelCommunication);
-            HelloReply response = await client.SayHelloAsync(new HelloRequest { Name = "ihab" });
-            return Ok(new { message = response.Message});
+            //HelloReply response = await client.SayHelloAsync(new HelloRequest { Name = "ihab" });
+            //On récupère un stream à partir d'un flux serveur
+            var stream = client.HellStreaming(new HelloRequest { Name = "ihab" });
+            await foreach(HelloReply r in stream.ResponseStream.ReadAllAsync())
+            {
+                Debug.WriteLine(r.Message);
+            }
+            return Ok(new { message = "test"});
         }
     }
 
