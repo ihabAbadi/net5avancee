@@ -1,6 +1,7 @@
 using AuthenticationExemple.Interfaces;
 using AuthenticationExemple.Tools;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -55,13 +56,14 @@ namespace AuthenticationExemple
             services.AddAuthorization(options => {
                 options.AddPolicy("customer", police =>
                 {
-                    police.RequireClaim(ClaimTypes.Email);
+                    police.AddRequirements(new RoleRequirement() { Role = Models.Role.customer });
                 });
                 options.AddPolicy("admin", police =>
                 {
                     police.AddRequirements(new RoleRequirement() { Role = Models.Role.admin });
                 });
             });
+            services.AddScoped<IAuthorizationHandler, RoleAuthorizationHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

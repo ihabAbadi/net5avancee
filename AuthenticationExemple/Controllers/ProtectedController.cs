@@ -13,12 +13,17 @@ namespace AuthenticationExemple.Controllers
     [Authorize(Policy = "customer")]
     public class ProtectedController : ControllerBase
     {
+        [HttpGet("Customer")]
+        public IActionResult Customer()
+        {
+            return Ok(new { message = "Access customer" });
+        }
 
         [HttpGet("Admin")]
         [Authorize(Policy = "admin")]
         public IActionResult Admin()
         {
-            return Ok();
+            return Ok(new { message = "Acces admin"});
         }
     }
 }
