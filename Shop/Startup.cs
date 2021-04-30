@@ -53,7 +53,7 @@ namespace Shop
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Shop v1"));
             }
-
+            
             app.UseRouting();
 
             //app.UseAuthorization();

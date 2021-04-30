@@ -16,7 +16,7 @@ namespace Shop.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok();
+            return Ok(new { message = "toto" });
         }
 
         [HttpPost]
@@ -24,7 +24,8 @@ namespace Shop.Controllers
         {
             using GrpcChannel channel = GrpcChannel.ForAddress("https://localhost:5001");
             var client = new Product.ProductClient(channel);
-            ResponseProduct response = await client.SendProductAsync(new RequestProduct { Title = product.Title, Price = (double)product.Price });
+            var r = new RequestProduct { Title = product.Title, Price = (double)product.Price };
+            ResponseProduct response = await client.SendProductAsync(r);
             return Ok(response);
         }
     }

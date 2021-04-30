@@ -5,8 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Protos\annotations.proto" />
-    <None Remove="Protos\http.proto" />
     <None Remove="Protos\product.proto" />
   </ItemGroup>
 
@@ -30,9 +28,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\annotations.proto" GrpcServices="None" />
-    <Protobuf Include="Protos\http.proto" GrpcServices="None" />
     <Protobuf Include="Protos\product.proto" GrpcServices="Both" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema=" " /></VisualStudio></ProjectExtensions>
 
 </Project>
