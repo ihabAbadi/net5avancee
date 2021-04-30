@@ -35,10 +35,11 @@ namespace AuthenticationExemple
         {
 
             services.AddControllers();
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "AuthenticationExemple", Version = "v1" });
-            //});
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AuthenticationExemple", Version = "v1" });
+                c.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme,new OpenApiSecurityScheme() { Name="Authorization", In = ParameterLocation.Header, Type=SecuritySchemeType.ApiKey, Scheme = JwtBearerDefaults.AuthenticationScheme});
+            });
             services.AddTransient<ITokenGenerator, JwtService>();
             services.AddScoped<IAuthorizationHandler, RoleAuthorizationHandler>();
 
@@ -60,11 +61,11 @@ namespace AuthenticationExemple
             services.AddAuthorization(options => {
                 options.AddPolicy("customer", police =>
                 {
-                    police.AddRequirements(new RoleRequirement() { Role = Models.Role.customer.ToString() });
+                    police.AddRequirements(new RoleRequirement() { Role = new List<string>() { Models.Role.customer.ToString()} });
                 });
                 options.AddPolicy("admin", police =>
                 {
-                    police.AddRequirements(new RoleRequirement() { Role = Models.Role.admin.ToString() });
+                    police.AddRequirements(new RoleRequirement() { Role = new List<string>() { Models.Role.admin.ToString(), Models.Role.customer.ToString() } });
                 });
             });
             //services.AddControllers();
@@ -73,19 +74,20 @@ namespace AuthenticationExemple
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //    app.UseSwagger();
-            //    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AuthenticationExemple v1"));
-            //}
+
 
             //app.UseHttpsRedirection();
-
+            
+            
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AuthenticationExemple v1"));
+            }
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

@@ -118,6 +118,19 @@ namespace FormationApiRest.Controllers
             return Ok(new { message = "Delete Ok" });
         }
 
+        [HttpGet("/gRPC/token")]
+        public async Task<IActionResult> GetFromgRPCWithToken()
+        {
+            using GrpcChannel channelCommunication = GrpcChannel.ForAddress("https://localhost:5001");
+            var client = new Greeter.GreeterClient(channelCommunication);
+            var headers = new Metadata();
+            headers.Add("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJpaGFiQHV0b3Bpb3MubmV0IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiY3VzdG9tZXIiLCJleHAiOjE2MjA2NTA2ODUsImlzcyI6InV0b3Bpb3MiLCJhdWQiOiJ1dG9waW9zIn0.55JBPBMjSN7nnzfgRgpWMvPiBgXzPVKYQrOnmbZfG_8");
+            HelloReply response = await client.SayHelloAsync(new HelloRequest { Name = "ihab" },headers);
+            
+            
+            return Ok(new { message = "test" });
+        }
+
         [HttpGet("/gRPC")] 
         public async Task<IActionResult> GetFromgRPC()
         {
