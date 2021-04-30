@@ -14,6 +14,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -51,7 +52,16 @@ namespace AuthenticationExemple
                 };
             });
             //Ajouter la configuration du service authorisation
-            //services.AddAuthorization();
+            services.AddAuthorization(options => {
+                options.AddPolicy("customer", police =>
+                {
+                    police.RequireClaim(ClaimTypes.Email);
+                });
+                options.AddPolicy("admin", police =>
+                {
+                    police.AddRequirements(new RoleRequirement() { Role = Models.Role.admin });
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
