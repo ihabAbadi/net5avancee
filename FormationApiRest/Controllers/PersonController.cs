@@ -132,6 +132,24 @@ namespace FormationApiRest.Controllers
             }
             return Ok(new { message = "test"});
         }
+
+        [HttpGet("/clientStream")]
+        public async Task<IActionResult> StreamClientgRPC()
+        {
+            using GrpcChannel channelCommunication = GrpcChannel.ForAddress("https://localhost:5001");
+            var client = new Greeter.GreeterClient(channelCommunication);
+            var stream = client.HeavenStreaming();
+            //Envoyer des données à notre service gRPC en stream
+            for (int i=1; i <= 5; i++)
+            {
+                await stream.RequestStream.WriteAsync(new HelloRequest { Name = "ihab "+ i});
+            }
+            //La fin d'envoie des données
+            await stream.RequestStream.CompleteAsync();
+            // réponse finale
+            HelloReply response = await stream.ResponseAsync;
+            return Ok(new { message = response.Message });
+        }
     }
 
     public record Person()

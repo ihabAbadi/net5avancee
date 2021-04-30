@@ -2,6 +2,7 @@ using Grpc.Core;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -43,6 +44,17 @@ namespace HelloService
                 await responseStream.WriteAsync(response);
             }
             //return base.HellStreaming(request, responseStream, context);
+        }
+
+
+        public override async Task<HelloReply> HeavenStreaming(IAsyncStreamReader<HelloRequest> requestStream, ServerCallContext context)
+        {
+
+            await foreach(HelloRequest request in requestStream.ReadAllAsync())
+            {
+                Debug.WriteLine(request.Name);
+            }
+            return new HelloReply { Message = "end of client streaming" };
         }
     }
 }

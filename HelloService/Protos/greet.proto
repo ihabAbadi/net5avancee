@@ -10,6 +10,7 @@ service Greeter {
   rpc SayHello (HelloRequest) returns (HelloReply);
   rpc SecondHello (HelloRequest) returns(HelloReply);
   rpc HellStreaming (HelloRequest) returns (stream HelloReply);
+  rpc HeavenStreaming(stream HelloRequest) returns(HelloReply);
 }
 
 // The request message containing the user's name.
